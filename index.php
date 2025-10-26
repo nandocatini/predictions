@@ -1,150 +1,95 @@
-<?php
-declare(strict_types=1);
-@ini_set('display_errors', '1');
-@error_reporting(E_ALL);
-@date_default_timezone_set('UTC');
-
-$phpVersion = PHP_VERSION;
-$now = date('Y-m-d H:i:s');
-?>
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="it">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>New Style</title>
-<?php
-// Read project preview data from environment
-$projectDescription = $_SERVER['PROJECT_DESCRIPTION'] ?? '';
-$projectImageUrl = $_SERVER['PROJECT_IMAGE_URL'] ?? '';
-?>
-<?php if ($projectDescription): ?>
-  <!-- Meta description -->
-  <meta name="description" content='<?= htmlspecialchars($projectDescription) ?>' />
-  <!-- Open Graph meta tags -->
-  <meta property="og:description" content="<?= htmlspecialchars($projectDescription) ?>" />
-  <!-- Twitter meta tags -->
-  <meta property="twitter:description" content="<?= htmlspecialchars($projectDescription) ?>" />
-<?php endif; ?>
-<?php if ($projectImageUrl): ?>
-  <!-- Open Graph image -->
-  <meta property="og:image" content="<?= htmlspecialchars($projectImageUrl) ?>" />
-  <!-- Twitter image -->
-  <meta property="twitter:image" content="<?= htmlspecialchars($projectImageUrl) ?>" />
-<?php endif; ?>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-color-start: #6a11cb;
-      --bg-color-end: #2575fc;
-      --text-color: #ffffff;
-      --card-bg-color: rgba(255, 255, 255, 0.01);
-      --card-border-color: rgba(255, 255, 255, 0.1);
-    }
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(45deg, var(--bg-color-start), var(--bg-color-end));
-      color: var(--text-color);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      text-align: center;
-      overflow: hidden;
-      position: relative;
-    }
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M-10 10L110 10M10 -10L10 110" stroke-width="1" stroke="rgba(255,255,255,0.05)"/></svg>');
-      animation: bg-pan 20s linear infinite;
-      z-index: -1;
-    }
-    @keyframes bg-pan {
-      0% { background-position: 0% 0%; }
-      100% { background-position: 100% 100%; }
-    }
-    main {
-      padding: 2rem;
-    }
-    .card {
-      background: var(--card-bg-color);
-      border: 1px solid var(--card-border-color);
-      border-radius: 16px;
-      padding: 2rem;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
-    }
-    .loader {
-      margin: 1.25rem auto 1.25rem;
-      width: 48px;
-      height: 48px;
-      border: 3px solid rgba(255, 255, 255, 0.25);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
-    .hint {
-      opacity: 0.9;
-    }
-    .sr-only {
-      position: absolute;
-      width: 1px; height: 1px;
-      padding: 0; margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap; border: 0;
-    }
-    h1 {
-      font-size: 3rem;
-      font-weight: 700;
-      margin: 0 0 1rem;
-      letter-spacing: -1px;
-    }
-    p {
-      margin: 0.5rem 0;
-      font-size: 1.1rem;
-    }
-    code {
-      background: rgba(0,0,0,0.2);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    footer {
-      position: absolute;
-      bottom: 1rem;
-      font-size: 0.8rem;
-      opacity: 0.7;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pronostici Calcio</title>
+    <meta name="description" content="Applicazione per previsioni di risultati calcistici dei principali campionati europei. Built with Flatlogic Generator.">
+    <meta name="keywords" content="pronostici, calcio, scommesse, serie a, premier league, liga, bundesliga, ligue 1, quote, risultati, Built with Flatlogic Generator">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Pronostici Calcio">
+    <meta property="og:description" content="Applicazione per previsioni di risultati calcistici dei principali campionati europei. Built with Flatlogic Generator.">
+    <meta property="og:image" content="<?php echo $_SERVER['PROJECT_IMAGE_URL']; ?>">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Pronostici Calcio">
+    <meta property="twitter:description" content="Applicazione per previsioni di risultati calcistici dei principali campionati europei. Built with Flatlogic Generator.">
+    <meta property="twitter:image" content="<?php echo $_SERVER['PROJECT_IMAGE_URL']; ?>">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="assets/css/custom.css?v=<?php echo time(); ?>" rel="stylesheet">
 </head>
 <body>
-  <main>
-    <div class="card">
-      <h1>Analyzing your requirements and generating your website…</h1>
-      <div class="loader" role="status" aria-live="polite" aria-label="Applying initial changes">
-        <span class="sr-only">Loading…</span>
-      </div>
-      <p class="hint"><?= ($_SERVER['HTTP_HOST'] ?? '') === 'appwizzy.com' ? 'AppWizzy' : 'Flatlogic' ?> AI is collecting your requirements and applying the first changes.</p>
-      <p class="hint">This page will update automatically as the plan is implemented.</p>
-      <p>Runtime: PHP <code><?= htmlspecialchars($phpVersion) ?></code> — UTC <code><?= htmlspecialchars($now) ?></code></p>
-    </div>
-  </main>
-  <footer>
-    Page updated: <?= htmlspecialchars($now) ?> (UTC)
-  </footer>
+
+    <header class="header-gradient p-4 mb-4 text-center">
+        <h1 class="display-4"><i class="bi bi-trophy-fill"></i> Pronostici Calcio</h1>
+        <p class="lead">Le tue previsioni sportive a portata di click</p>
+    </header>
+
+    <main class="container">
+        <div class="card p-3 mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <label for="date-picker" class="form-label fw-bold">Seleziona una data:</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="date" id="date-picker" class="form-control" value="<?php echo date('Y-m-d'); ?>">
+                </div>
+            </div>
+        </div>
+
+        <ul class="nav nav-tabs" id="leagueTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="serie-a-tab" data-bs-toggle="tab" data-bs-target="#serie-a" type="button" role="tab" aria-controls="serie-a" aria-selected="true">Serie A</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="premier-league-tab" data-bs-toggle="tab" data-bs-target="#premier-league" type="button" role="tab" aria-controls="premier-league" aria-selected="false">Premier League</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="la-liga-tab" data-bs-toggle="tab" data-bs-target="#la-liga" type="button" role="tab" aria-controls="la-liga" aria-selected="false">La Liga</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="bundesliga-tab" data-bs-toggle="tab" data-bs-target="#bundesliga" type="button" role="tab" aria-controls="bundesliga" aria-selected="false">Bundesliga</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="ligue-1-tab" data-bs-toggle="tab" data-bs-target="#ligue-1" type="button" role="tab" aria-controls="ligue-1" aria-selected="false">Ligue 1</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="serie-b-tab" data-bs-toggle="tab" data-bs-target="#serie-b" type="button" role="tab" aria-controls="serie-b" aria-selected="false">Serie B</button>
+            </li>
+        </ul>
+
+        <div class="tab-content p-3 card" id="leagueTabsContent">
+            <div class="tab-pane fade show active" id="serie-a" role="tabpanel" aria-labelledby="serie-a-tab">
+                <p class="text-center text-muted mt-3">Nessun evento in programma per la data selezionata.</p>
+            </div>
+            <div class="tab-pane fade" id="premier-league" role="tabpanel" aria-labelledby="premier-league-tab">
+                <p class="text-center text-muted mt-3">Nessun evento in programma per la data selezionata.</p>
+            </div>
+            <div class="tab-pane fade" id="la-liga" role="tabpanel" aria-labelledby="la-liga-tab">
+                <p class="text-center text-muted mt-3">Nessun evento in programma per la data selezionata.</p>
+            </div>
+            <div class="tab-pane fade" id="bundesliga" role="tabpanel" aria-labelledby="bundesliga-tab">
+                <p class="text-center text-muted mt-3">Nessun evento in programma per la data selezionata.</p>
+            </div>
+            <div class="tab-pane fade" id="ligue-1" role="tabpanel" aria-labelledby="ligue-1-tab">
+                <p class="text-center text-muted mt-3">Nessun evento in programma per la data selezionata.</p>
+            </div>
+            <div class="tab-pane fade" id="serie-b" role="tabpanel" aria-labelledby="serie-b-tab">
+                <p class="text-center text-muted mt-3">Nessun evento in programma per la data selezionata.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center text-muted py-4 mt-4">
+        <p>&copy; <?php echo date("Y"); ?> Pronostici Calcio. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>
